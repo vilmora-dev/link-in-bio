@@ -16,6 +16,25 @@ const media = [
   },
 ];
 
+const links = [
+  {
+    label: "Product 1",
+    href: "#1",
+  },
+  {
+    label: "Product 2",
+    href: "#2",
+  },
+  {
+    label: "Product 3",
+    href: "#3",
+  },
+  {
+    label: "Product 4",
+    href: "#4",
+  },
+];
+
 function App() {
   const [scrollY, setScrollY] = useState(0);
   const scrollContainerRef = useRef(null);
@@ -40,7 +59,7 @@ function App() {
     <div 
       ref={scrollContainerRef}
       className="min-h-screen h-screen overflow-y-scroll flex justify-center relative" 
-      style={{ backgroundColor: '#013d71ff', color: `rgb(${textColor})` }}
+      style={{ backgroundColor: '#3c576e', color: `rgb(${textColor})` }}
     >
       <div className="w-full max-w-xl">
         <div className="min-h-screen w-full shadow-2xl flex flex-col relative" style={{ backgroundColor: 'rgba(197, 227, 253, 0.95)' }}>
@@ -117,10 +136,55 @@ function App() {
                 ))}
               </div>
 
-              {/* Content sample space */}
-              <div className="h-[75vh] flex-shrink-0 relative">
-                
+              {/* Links */}
+              <div className="mt-8 w-full flex flex-col gap-6 px-4 pb-20">
+                {links.map((link) => (
+                  <div 
+                    key={link.href} 
+                    className="grid grid-cols-12 items-center gap-4 p-4 rounded-3xl border border-white/10 bg-black/10 backdrop-blur-sm hover:bg-white/10 hover:shadow-lg transition-all duration-200"
+                  >
+                    {/* Icon - 15% (2/12 columns) */}
+                    <div className="col-span-2 w-12 h-12 rounded-2xl flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/10">
+                      {link.image ? (
+                        <img 
+                          src={link.image} 
+                          alt={link.label}
+                          className="w-full h-full object-cover rounded-xl"
+                        />
+                      ) : (
+                        <span className="text-xl">🌐</span>
+                      )}
+                    </div>
+                    
+                    {/* Label - 70% (8/12 columns) */}
+                    <div className="col-span-8 text-left">
+                      <a 
+                        className="text-sm font-semibold tracking-wide block cursor-default"
+                        style={{ color: `rgba(${textColor}, .6)` }}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
+                        {link.label}
+                      </a>
+                    </div>
+                    
+                    {/* Share - 15% (2/12 columns) */}
+                    <div className="col-span-2 flex justify-end">
+                      <button 
+                        className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/10 flex items-center justify-center transition-all duration-200 hover:scale-105 border border-white/10"
+                        style={{ color: `rgb(${textColor})` }}
+                        onClick={() => {console.log('Sharing', link.label)}}
+                      >
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
+              
             </div>
 
             
