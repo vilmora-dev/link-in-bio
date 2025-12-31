@@ -1,5 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import coverImage from "./assets/Cover.jpg";
+import InstagramIcon from "./components/InstagramIcon";
+import TiktokIcon from "./components/TiktokIcon";
+
+const media = [
+  { 
+    label: "Instagram", 
+    icon: InstagramIcon,
+    href: "https://instagram.com/nimbus.wandering" 
+  },
+  { 
+    label: "TikTok", 
+    icon: TiktokIcon,
+    href: "https://www.tiktok.com/@nimbuswandering?_r=1&_t=ZP-92fyMXqK8b8" 
+  },
+];
 
 function App() {
   const [scrollY, setScrollY] = useState(0);
@@ -85,11 +100,30 @@ function App() {
                 </p>
               </div>
               
+              {/* Media */}
+              <div className="flex justify-center items-center gap-6 pb-6">
+                {media.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-2xl p-3 rounded-xl bg-black/10 backdrop-blur-sm hover:bg-white/10 hover:scale-110 transition-all duration-200 border border-white/10 shadow-sm"
+                    style={{ color: `rgb(${textColor})` }}
+                    aria-label={item.icon}
+                  >
+                    <item.icon />
+                  </a>
+                ))}
+              </div>
+
               {/* Content sample space */}
               <div className="h-[75vh] flex-shrink-0 relative">
                 
               </div>
             </div>
+
+            
           </div>
 
         </div>
