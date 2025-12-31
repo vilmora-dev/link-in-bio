@@ -19,6 +19,8 @@ function App() {
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const nameBioOpacity = Math.max(0, 1 - (scrollY / 200));
+
   return (
     <div 
       ref={scrollContainerRef}
@@ -69,6 +71,7 @@ function App() {
               {/* Name & bio */}
               <div 
                 className="px-8 pb-6 flex flex-col items-center gap-3 text-center transition-opacity duration-200"
+                style={{ opacity: nameBioOpacity }}
               >
                 <h1 className="text-3xl font-bold tracking-tight"
                   style={{ color: `rgb(${textColor})` }}
