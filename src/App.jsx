@@ -39,6 +39,7 @@ function App() {
   const [scrollY, setScrollY] = useState(0);
   const scrollContainerRef = useRef(null);
   const textColor = '5,91,166';
+  const [privacyModal, setPrivacyModal] = useState(false);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -185,11 +186,100 @@ function App() {
                 ))}
               </div>
               
-            </div>
-
-            
+              {/* Footer / handle */}
+              <div className="flex items-center justify-center gap-3 text-xs mt-8 pb-8"
+                style={{ color: `rgba(${textColor}, .7)` }}
+              >
+                <p>@nimbus.wandering</p>
+                <span>•</span>
+                <button 
+                  onClick={() => setPrivacyModal(true)}
+                  className="hover:underline transition-all"
+                  style={{ color: `rgba(${textColor}, .7)` }}
+                >
+                  Privacy Policy
+                </button>
+              </div>
+            </div>  
           </div>
 
+          {/* Privacy Policy Modal */}
+          {privacyModal && (
+            <>
+              {/* Backdrop */}
+              <div 
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+                onClick={() => setPrivacyModal(false)}
+              />
+              
+              {/* Modal */}
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+                <div className="w-full max-w-xl pointer-events-auto">
+                  <div 
+                    className="bg-white rounded-3xl shadow-2xl overflow-hidden max-h-[80vh] flex flex-col"
+                    style={{ backgroundColor: 'rgba(197, 227, 253, 0.98)' }}
+                  >
+                    {/* Header */}
+                    <div className="flex items-center justify-between p-6 pb-4 border-b border-white/10">
+                      <h2 className="text-xl font-bold" style={{ color: `rgb(${textColor})` }}>
+                        Privacy Policy
+                      </h2>
+                      <button 
+                        onClick={() => setPrivacyModal(false)}
+                        className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200"
+                        style={{ color: `rgb(${textColor})` }}
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 overflow-y-auto" style={{ color: `rgba(${textColor}, .8)` }}>
+                      <div className="space-y-4 text-sm">
+                        <p>
+                          This website ("Nimbus Wandering") is a personal link-sharing page operated by the owner of the Instagram account @nimbus.wandering.
+                        </p>
+                        
+                        <h3 className="font-semibold text-base mt-4" style={{ color: `rgb(${textColor})` }}>
+                          Information We Collect
+                        </h3>
+                        <p>
+                          We do not collect, store, or process any personal information from visitors. This site does not use cookies, analytics, or tracking tools.
+                        </p>
+
+                        <h3 className="font-semibold text-base mt-4" style={{ color: `rgb(${textColor})` }}>
+                          External Links
+                        </h3>
+                        <p>
+                          This website contains affiliate links to Amazon and other third-party websites. When you click on these links, you will be redirected to external sites that have their own privacy policies. We are not responsible for the privacy practices of these external sites.
+                        </p>
+
+                        <h3 className="font-semibold text-base mt-4" style={{ color: `rgb(${textColor})` }}>
+                          Affiliate Disclosure
+                        </h3>
+                        <p>
+                          Some links on this website are affiliate links. This means we may earn a small commission if you make a purchase through these links, at no additional cost to you. These commissions help support our content.
+                        </p>
+
+                        <h3 className="font-semibold text-base mt-4" style={{ color: `rgb(${textColor})` }}>
+                          Contact
+                        </h3>
+                        <p>
+                          If you have any questions about this Privacy Policy, you can contact us through our Instagram account @nimbus.wandering.
+                        </p>
+
+                        <p className="text-xs mt-6" style={{ color: `rgba(${textColor}, .6)` }}>
+                          Last updated: {new Date().toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
