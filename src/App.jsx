@@ -19,20 +19,24 @@ const media = [
 
 const links = [
   {
-    label: "Product 1",
-    href: "#1",
+    icon: "🎒",
+    label: "Pawtners - Cat Carrier Backpack ",
+    href: "https://amzn.to/3YPa9Dp",
   },
   {
-    label: "Product 2",
-    href: "#2",
+    icon: "🪢",
+    label: "BuddyArmor - Cat Harness",
+    href: "https://amzn.to/49i2nH0",
   },
   {
-    label: "Product 3",
-    href: "#3",
+    icon: "📦",
+    label: "OutdoorBengal - Portable Litter Box ",
+    href: "https://amzn.to/4jtAsc4",
   },
   {
-    label: "Product 4",
-    href: "#4",
+    icon: "🏝",
+    label: "HONEY CARE - Tofu Cat Litter",
+    href: "https://amzn.to/4jhUm9D",
   },
 ];
 
@@ -56,12 +60,13 @@ function App() {
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Calculate opacity for name & bio section
   const nameBioOpacity = Math.max(0, 1 - (scrollY / 200));
 
   const openShareModal = (href, label, image) => {
     setShareModal({ open: true, url: href, label, image });
   };
-  
+
   return (
     <div 
       ref={scrollContainerRef}
@@ -171,7 +176,10 @@ function App() {
                           className="w-full h-full object-cover rounded-xl"
                         />
                       ) : (
-                        <span className="text-xl">🌐</span>
+                        link.icon ? (
+                          <span className="text-xl">{link.icon}</span>
+                        ) :
+                        (<span className="text-xl">🌐</span>)
                       )}
                     </div>
                     
