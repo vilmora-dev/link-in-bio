@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import coverImage from "./assets/Cover.jpg";
 import InstagramIcon from "./components/InstagramIcon";
 import TiktokIcon from "./components/TiktokIcon";
+import LinkShareModal from "./components/LinkShareModal";
 
 const media = [
   { 
@@ -40,6 +41,7 @@ function App() {
   const scrollContainerRef = useRef(null);
   const textColor = '5,91,166';
   const [privacyModal, setPrivacyModal] = useState(false);
+  const [shareModal, setShareModal] = useState({ open: false, url: '', label: '', image: '' });
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -56,6 +58,10 @@ function App() {
 
   const nameBioOpacity = Math.max(0, 1 - (scrollY / 200));
 
+  const openShareModal = (href, label, image) => {
+    setShareModal({ open: true, url: href, label, image });
+  };
+  
   return (
     <div 
       ref={scrollContainerRef}
@@ -90,7 +96,7 @@ function App() {
             {/* Share button */}
             <div className="absolute top-4 right-4 z-10">
               <button 
-                onClick={() => {}}
+                onClick={() => openShareModal("", "")}
                 className="flex items-center gap-2 px-3 py-2 bg-white/20 backdrop-blur-sm text-[#3e3e3e] font-medium rounded-full shadow-lg hover:bg-white/10 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 border border-white/10"
                 aria-label="Share this page"
               >
@@ -187,7 +193,7 @@ function App() {
                       <button 
                         className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/10 flex items-center justify-center transition-all duration-200 hover:scale-105 border border-white/10"
                         style={{ color: `rgb(${textColor})` }}
-                        onClick={() => {console.log('Sharing', link.label)}}
+                        onClick={() => openShareModal(link.href, link.label, link.image || '🌐')}
                       >
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
@@ -214,6 +220,14 @@ function App() {
               </div>
             </div>  
           </div>
+
+          <LinkShareModal 
+            isOpen={shareModal.open}
+            onClose={() => setShareModal({ open: false, url: '', label: '', image: '' })}
+            linkUrl={shareModal.url}
+            linkLabel={shareModal.label}
+            linkImage={shareModal.image}
+          />
 
           {/* Privacy Policy Modal */}
           {privacyModal && (
