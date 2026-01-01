@@ -1,8 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 
-const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage }) => {
+const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage, socialMedia = null }) => {
 
   const getShareMessage = (linkItemElement, linkUrl) => {
+    // Special handling for site share with social media links
+    if (socialMedia && socialMedia.length > 0) {
+      let message = `Cat happiness unlocked! 🐾 Follow Nimbus for daily dose of joy. 🐱✨\n\n`;
+      socialMedia.forEach(item => {
+        message += `${item.label}: ${item.href}\n`;
+      });
+      return encodeURIComponent(message);
+    }
+    
+    // Regular product share message
     const templates = [
       `Hey! Check out this ${linkItemElement} from Nimbus's picks! 😻`,
       `Purr-fect find! "${linkItemElement}" from Nimbus's cat collection 🐾`,
@@ -110,7 +120,7 @@ const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage }) => {
     };
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
-  }, [onClose]);
+  }, [onClose, socialMedia]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -135,7 +145,7 @@ const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage }) => {
         onClick={onClose}
       />
       
-      {/* Modal Container - matches max-w-lg from main app */}
+      {/* Modal Container - matches max-w-xl from main app */}
       <div className="fixed inset-0 z-50 flex items-end justify-center pointer-events-none">
         <div className="w-full max-w-xl pointer-events-auto">
           <div
@@ -165,36 +175,78 @@ const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage }) => {
 
               {/* Content */}
               <div className="flex-1 flex flex-col gap-6 px-2">
-                {/* Link Card Button */}
-                <a 
-                  href={linkUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="mx-2 p-4 shadow-lg rounded-2xl bg-white/20 backdrop-blur-sm hover:bg-white/30 hover:shadow-xl transition-all duration-200 flex flex-col items-center group hover:scale-[1.02] border border-white/30"
-                >
-                  {/* Image */}
-                  <div 
-                    className="w-fit h-fit max-w-40 rounded-xl flex items-center justify-center flex-shrink-0 mb-2 bg-white/30 backdrop-blur-sm border border-white/40"
-                  >
-                    {linkImage ? (
+                {/* Conditional rendering based on socialMedia */}
+                {socialMedia && socialMedia.length > 0 ? (
+                  // Site share display card (not clickable)
+                  <div className="mx-2 p-4 shadow-lg rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30">
+                    {/* Image */}
+                    <div className="w-fit h-fit max-w-40 mx-auto rounded-xl flex items-center justify-center flex-shrink-0 mb-3 bg-white/30 backdrop-blur-sm border border-white/40">
+                      {linkImage ? (
                         <img 
-                        src={linkImage} 
-                        alt={linkLabel}
-                        className="w-full h-full max-h-40 object-cover bg-center rounded-xl" 
+                          src={linkImage} 
+                          alt={linkLabel}
+                          className="w-full h-full max-h-40 object-cover bg-center rounded-xl" 
                         />
-                    ) : (
-                        <span className="text-xl">🌐</span>
-                    )}
-                  </div>
-                  
-                  {/* Text */}
-                  <div className="w-full text-center">
-                    <div className="font-semibold text-base text-white">
-                      {linkLabel}
+                      ) : (
+                        <span className="text-xl">🐱</span>
+                      )}
                     </div>
-                    <div className="text-xs text-white/70 mt-1">{linkUrl}</div>
+                    
+                    {/* Text */}
+                    <div className="w-full text-center mb-4">
+                      <div className="font-semibold text-base text-white mb-2">
+                        {linkLabel}
+                      </div>
+                      <div className="text-xs text-white/90">Check this baby cat on:</div>
+                    </div>
+
+                    {/* Social media links */}
+                    <div className="space-y-2">
+                      {socialMedia.map((item) => (
+                        <div key={item.href} className="flex items-center justify-between text-sm text-white/80 bg-white/10 rounded-lg px-3 py-2">
+                          <span className="font-medium">{item.label}:</span>
+                          <a 
+                            href={item.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-cyan-300 hover:text-cyan-200 underline truncate max-w-[200px]"
+                          >
+                            {item.href.replace('https://', '').replace('www.', '')}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </a>
+                ) : (
+                  // Product share link card (clickable)
+                  <a 
+                    href={linkUrl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="mx-2 p-4 shadow-lg rounded-2xl bg-white/20 backdrop-blur-sm hover:bg-white/30 hover:shadow-xl transition-all duration-200 flex flex-col items-center group hover:scale-[1.02] border border-white/30"
+                  >
+                    {/* Image */}
+                    <div className="w-fit h-fit max-w-40 rounded-xl flex items-center justify-center flex-shrink-0 mb-2 bg-white/30 backdrop-blur-sm border border-white/40">
+                      {linkImage ? (
+                        <img 
+                          src={linkImage} 
+                          alt={linkLabel}
+                          className="w-full h-full max-h-40 object-cover bg-center rounded-xl" 
+                        />
+                      ) : (
+                        <span className="text-xl">🌐</span>
+                      )}
+                    </div>
+                    
+                    {/* Text */}
+                    <div className="w-full text-center">
+                      <div className="font-semibold text-base text-white">
+                        {linkLabel}
+                      </div>
+                      <div className="text-xs text-white/70 mt-1">{linkUrl}</div>
+                    </div>
+                  </a>
+                )}
 
                 {/* Share via */}
                 <div className="flex gap-4 sm:gap-7 overflow-x-auto pb-4 px-2 -mx-2">
@@ -217,7 +269,7 @@ const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage }) => {
                           {icon}
                         </button>
                       )}
-                      <span className="text-xs text-white text-center">{label}</span>
+                      <span className="text-xs text-white text-center leading-tight whitespace-nowrap">{label}</span>
                     </div>
                   ))}
                 </div>

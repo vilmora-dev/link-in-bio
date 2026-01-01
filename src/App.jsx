@@ -3,6 +3,10 @@ import coverImage from "./assets/Cover.jpg";
 import InstagramIcon from "./components/InstagramIcon";
 import TiktokIcon from "./components/TiktokIcon";
 import LinkShareModal from "./components/LinkShareModal";
+import Harness from "./assets/Harness.jpg";
+import Backpack from "./assets/Backpack.jpg";
+import Litter from "./assets/Litter.jpg";
+import LitterBox from "./assets/LitterBox.jpg";
 
 const media = [
   { 
@@ -19,21 +23,25 @@ const media = [
 
 const links = [
   {
+    image: Backpack,
     icon: "🎒",
     label: "Pawtners - Cat Carrier Backpack ",
     href: "https://amzn.to/3YPa9Dp",
   },
   {
+    image: Harness,
     icon: "🪢",
     label: "BuddyArmor - Cat Harness",
     href: "https://amzn.to/49i2nH0",
   },
   {
+    image: LitterBox,
     icon: "📦",
     label: "OutdoorBengal - Portable Litter Box ",
     href: "https://amzn.to/4jtAsc4",
   },
   {
+    image: Litter,
     icon: "🏝",
     label: "HONEY CARE - Tofu Cat Litter",
     href: "https://amzn.to/4jhUm9D",
@@ -63,9 +71,10 @@ function App() {
   // Calculate opacity for name & bio section
   const nameBioOpacity = Math.max(0, 1 - (scrollY / 200));
 
-  const openShareModal = (href, label, image) => {
-    setShareModal({ open: true, url: href, label, image });
+  const openShareModal = (href, label, image, socialMedia = null) => {
+    setShareModal({ open: true, url: href, label, image, socialMedia });
   };
+
 
   return (
     <div 
@@ -101,7 +110,12 @@ function App() {
             {/* Share button */}
             <div className="absolute top-4 right-4 z-10">
               <button 
-                onClick={() => openShareModal("", "")}
+                onClick={() => openShareModal(
+                  window.location.href, 
+                  "Spread Nimbus Love 🐾", 
+                  coverImage,
+                  media // Pass the media array for social links
+                )}
                 className="flex items-center gap-2 px-3 py-2 bg-white/20 backdrop-blur-sm text-[#3e3e3e] font-medium rounded-full shadow-lg hover:bg-white/10 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 border border-white/10"
                 aria-label="Share this page"
               >
@@ -231,10 +245,11 @@ function App() {
 
           <LinkShareModal 
             isOpen={shareModal.open}
-            onClose={() => setShareModal({ open: false, url: '', label: '', image: '' })}
+            onClose={() => setShareModal({ open: false, url: '', label: '', image: '', socialMedia: null })}
             linkUrl={shareModal.url}
             linkLabel={shareModal.label}
             linkImage={shareModal.image}
+            socialMedia={shareModal.socialMedia}
           />
 
           {/* Privacy Policy Modal */}
