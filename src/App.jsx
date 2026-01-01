@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import coverImage from "./assets/Cover.jpg";
+import coverImage from "./assets/Cover.png";
 import InstagramIcon from "./components/InstagramIcon";
 import TiktokIcon from "./components/TiktokIcon";
 import LinkShareModal from "./components/LinkShareModal";
-import Harness from "./assets/Harness.jpg";
-import Backpack from "./assets/Backpack.jpg";
-import Litter from "./assets/Litter.jpg";
-import LitterBox from "./assets/LitterBox.jpg";
+import Harness from "./assets/Harness.png";
+import Backpack from "./assets/Backpack.png";
+import Litter from "./assets/Litter.png";
+import LitterBox from "./assets/LitterBox.png";
 
 const media = [
   { 
