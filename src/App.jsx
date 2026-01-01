@@ -131,7 +131,7 @@ function App() {
           </div>
 
           {/* Spacer for image area */}
-          <div className="h-[75vh] flex-shrink-0 relative">
+          <div className="h-[61vh] flex-shrink-0 relative">
           </div>
 
           {/* Content area with gradient background */}
@@ -182,7 +182,7 @@ function App() {
               </div>
 
               {/* Links */}
-              <div className="mt-8 w-full flex flex-col gap-6 px-4 pb-20">
+              <div className="mt-8 w-full flex flex-col gap-6 px-4 pb-15">
                 {links.map((link) => (
                   <div 
                     key={link.href} 
