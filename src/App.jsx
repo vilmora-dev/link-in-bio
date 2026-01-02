@@ -7,6 +7,7 @@ import Harness from "./assets/Harness.png";
 import Backpack from "./assets/Backpack.png";
 import Litter from "./assets/Litter.png";
 import LitterBox from "./assets/LitterBox.png";
+import meetNimbus from "./assets/Nimbus.png";
 
 const media = [
   { 
@@ -117,7 +118,7 @@ function App() {
               onClick={() => openShareModal(
                 window.location.href, 
                 "Spread Nimbus Love 🐾", 
-                coverImage,
+                meetNimbus,
                 media
               )}
               className="flex items-center gap-2 px-3 py-2 bg-white/20 backdrop-blur-sm text-[#3e3e3e] font-medium rounded-full shadow-lg hover:bg-white/10 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 border border-white/10"

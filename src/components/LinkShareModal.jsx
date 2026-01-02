@@ -197,7 +197,7 @@ const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage, social
                       <div className="font-semibold text-base text-white mb-2">
                         {linkLabel}
                       </div>
-                      <div className="text-xs text-white/90">Check this baby cat on:</div>
+                      <div className="text-xs text-white/90">Share → Watch → Adore!</div>
                     </div>
 
                     {/* Social media links */}
