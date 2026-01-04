@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage, socialMedia = null }) => {
 
@@ -21,6 +21,14 @@ const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage, social
     ];
     const message = templates[Math.floor(Math.random() * templates.length)] + ` ${linkUrl}`;
     return encodeURIComponent(message);
+  };
+
+  const [copied, setCopied] = useState(false);
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(linkUrl);
+    setCopied(true);
+    // Auto-hide checkmark after 2s
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const shareOptions = [
@@ -94,7 +102,7 @@ const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage, social
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
         </svg>
         ),
-        onClick: () => navigator.clipboard.writeText(linkUrl),
+        onClick: () => {copyLink()},
         bg: 'bg-slate-600/90 hover:bg-slate-700/90',
         label: 'Copy Link'
     },
@@ -278,6 +286,11 @@ const LinkShareModal = ({ isOpen, onClose, linkUrl, linkLabel, linkImage, social
           </div>
         </div>
       </div>
+      {copied && (
+        <div className="z-100 fixed top-6 left-1/2 transform -translate-x-1/2 bg-black/10 text-white px-6 py-2 rounded-xl shadow-2xl z-50 animate-in slide-in-from-bottom-2 fade-in duration-300">
+          ✅ Copied to clipboard!
+        </div>
+      )}
     </>
   );
 };
