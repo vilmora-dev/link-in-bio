@@ -8,6 +8,7 @@ import Backpack from "./assets/Backpack.png";
 import Litter from "./assets/Litter.png";
 import LitterBox from "./assets/LitterBox.png";
 import meetNimbus from "./assets/Nimbus.png";
+import { Analytics } from '@vercel/analytics/react';
 
 const media = [
   { 
@@ -339,6 +340,7 @@ function App() {
           )}
         </div>
       </div>
+      <Analytics />
     </div>
   );
 }
