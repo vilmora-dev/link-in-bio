@@ -306,6 +306,13 @@ function App() {
                         <p>
                           We do not collect, store, or process any personal information from visitors. This site does not use cookies, analytics, or tracking tools.
                         </p>
+                        
+                        <h3 className="font-semibold text-base mt-4" style={{ color: `rgb(${textColor})` }}>
+                          Analytics
+                        </h3>
+                        <p>
+                          We use Vercel Analytics to understand how visitors use our website. This service collects anonymous, aggregated data such as page views, countries, and device types. No personal information, cookies, or tracking identifiers are used. Data is collected in compliance with GDPR and other privacy regulations.
+                        </p>
 
                         <h3 className="font-semibold text-base mt-4" style={{ color: `rgb(${textColor})` }}>
                           External Links
