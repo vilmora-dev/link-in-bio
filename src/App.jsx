@@ -328,7 +328,7 @@ function App() {
                         </p>
 
                         <p className="text-xs mt-6" style={{ color: `rgba(${textColor}, .6)` }}>
-                          Last updated: {new Date().toLocaleDateString()}
+                          Last updated: January 3, 2026
                         </p>
                       </div>
                     </div>
